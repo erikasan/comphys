@@ -1,5 +1,3 @@
-void fwdsbst(int n, double*, double*, double*, double*);
-void bwdsbst(int n, double*, double*, double*, double*);
 
 void fwdsbst(int n, double *y, double *d, double *a, double *b)
 {
