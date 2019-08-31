@@ -28,8 +28,8 @@ int main()
     b[i] = v4[i];
   }
 
-  fwdsbst(y, d, a, b);
-  bwdsbst(x, y, d, b);
+  fwdsbst(n, y, d, a, b);
+  bwdsbst(n, x, y, d, b);
 
   for (int i = 0; i != n; ++i) {
     cout << x[i] << endl;
