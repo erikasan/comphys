@@ -3,12 +3,14 @@
 #include <iomanip>
 #include <cmath>
 #include <string>
+#include <ctime>
 
 #include "solve_poisson.h"
 
 using namespace std;
 
 ofstream outfile;
+
 
 int main()
 {
@@ -52,7 +54,12 @@ int main()
       f[i] = 100*exp(-10*x[i]);
     }
 
+    clock_t start, finish;
+    start = clock();
+    
     u = solve_poisson(f, x0, X, n);       // Solve differential equation
+
+    finish = clock();
 
     string outfilename = "poisson-n=1e"
     + to_string((int) log10(n)) + ".dat";
@@ -65,7 +72,13 @@ int main()
 
     outfile.close();
 
+    cout << "n = 1e" + to_string((int) log10(n))
+    << " Total CPU Time: " << (double) (finish - start)/CLOCKS_PER_SEC
+    << " s" << endl;
+
+
   } // End while loop
+
 
   return 0;
 }
