@@ -48,5 +48,7 @@ double* solve_poisson(double* f, int x0, int X, unsigned int n)
     u[i+1] = v[i];
   }
 
+  delete [] v;
+
   return u;
 }

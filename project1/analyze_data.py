@@ -1,6 +1,6 @@
 import numpy as np, matplotlib.pyplot as plt
 
-data = np.loadtxt('poisson-n=1000.dat')
+data = np.loadtxt('poisson-n=1e3.dat')
 
 x = data[:, 0]; u = data[:, 1]
 
@@ -11,4 +11,5 @@ plt.subplot(2, 1, 1)
 plt.plot(x, u)
 plt.subplot(2, 1, 2)
 plt.plot(x, exact(x))
+plt.tight_layout()
 plt.show()

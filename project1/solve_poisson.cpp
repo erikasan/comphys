@@ -59,7 +59,8 @@ int main()
     outfile.open(outfilename);
 
     for (int i = 0; i != n+2; ++i) {      // Write to file
-      outfile << x[i] << ' ' << u[i] << endl;
+      outfile << setw(15) << setprecision(8)
+      << x[i] << ' ' << u[i] << endl;
     }
 
     outfile.close();
