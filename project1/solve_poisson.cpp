@@ -56,7 +56,7 @@ int main()
     outfile.open(outfilename);
 
     for (int i = 0; i != n+2; ++i) {
-      outfile << x[i] << ' ' << f[i] << endl;
+      outfile << x[i] << ' ' << u[i] << endl;
     }
 
     outfile.close();

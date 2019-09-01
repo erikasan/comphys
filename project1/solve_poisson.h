@@ -14,25 +14,25 @@ Note that f must be of size n+2
 double* solve_poisson(double* f, int x0, int X, unsigned int n)
 {
 
-  double h = (X - x0)/(n + 1);      // Stepsize
+  double h = (double) (X - x0)/(n + 1);     // Stepsize
 
-  double *d = new double[n],        // Define arrays that will hold
-  *a = new double[n-1],             // the diagonal matrix elements
+  double *d = new double[n],                // Define arrays that will hold
+  *a = new double[n-1],                     // the diagonal matrix elements
   *b = new double[n-1];
 
-  double *u = new double[n+2];      // Define array that will
-                                    // contain the solution
-                                    // to the differential equation
+  double *u = new double[n+2];              // Define array that will
+                                            // contain the solution
+                                            // to the differential equation
   /*
-  u[0] = 0; u[n+1] = 0;             // Dirichlet boundary conditions
-                                    // Note that u[0] = u[n+1] by default
+  u[0] = 0; u[n+1] = 0;                     // Dirichlet boundary conditions
+                                            // Note that u[0] = u[n+1] by default
   */
 
-  double *y = new double[n];        // Define array to hold the right-hand
-                                    // side of the matrix equation
+  double *y = new double[n];                // Define array to hold the right-hand
+                                            // side of the matrix equation
 
   double hsquared = h*h;
-  for (int i = 0; i != n; ++i) {    // Fill arrays with matrix elements
+  for (int i = 0; i != n; ++i) {            // Fill arrays with matrix elements
     y[i] = -hsquared*f[i+1];
     d[i] = -2;
   }
