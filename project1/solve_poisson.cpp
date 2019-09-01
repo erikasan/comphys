@@ -13,14 +13,16 @@ ofstream outfile;
 int main()
 {
 
-  // Number of integration points
-  unsigned int n;
+  double input;                           // Variable where the input is stored
 
-  // Stepsize
-  double h;
+  unsigned int n;                         // Number of integration points
+
+  double h;                               // Stepsize
 
   // Begin while-loop
-  while (cin >> n) {
+  while (cin >> input) {
+
+    n = (int) input;
 
     double *x = new double[n+2];          //Define array that holds the x values
 
@@ -36,7 +38,7 @@ int main()
     x[0] = x0; x[n+1] = X;                // where we will solve
                                           // the differential equation
 
-    h = (x[n+1] - x[0])/(n+1);            // Define Stepsize
+    h = (double) (x[n+1] - x[0])/(n+1);            // Define Stepsize
 
     double *d = new double[n],            // Define arrays that will
     *a = new double[n-1],                 // hold the matrix elements
@@ -52,15 +54,17 @@ int main()
 
     u = solve_poisson(f, x0, X, n);       // Solve differential equation
 
-    string outfilename = "poisson-n=" + to_string(n) + ".dat";
+    string outfilename = "poisson-n=1e"
+    + to_string((int) log10(n)) + ".dat";
     outfile.open(outfilename);
 
-    for (int i = 0; i != n+2; ++i) {
+    for (int i = 0; i != n+2; ++i) {      // Write to file
       outfile << x[i] << ' ' << u[i] << endl;
     }
 
     outfile.close();
 
   } // End while loop
+
   return 0;
 }
