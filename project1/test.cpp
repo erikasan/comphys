@@ -6,12 +6,10 @@ using namespace std;
 
 int main()
 {
-  int n = 3;
+  unsigned int n = 3;
 
   double *y = new double[n], *d = new double[n],
   *a = new double[n-1], *b = new double[n-1];
-
-  double *x = new double[n];
 
   vector<int> v1{1, 2, 3};
   vector<int> v2{10, 20, 30};
@@ -28,8 +26,7 @@ int main()
     b[i] = v4[i];
   }
 
-  fwdsbst(n, y, d, a, b);
-  bwdsbst(n, x, y, d, b);
+  double *x = tridgausselim(n, y, d, a, b);
 
   for (int i = 0; i != n; ++i) {
     cout << x[i] << endl;
