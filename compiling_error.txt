@@ -1,4 +1,0 @@
-/home/erik/Documents/comphys/solvepoisson.cpp:2:10: fatal error: tridgausselim.h: No such file or directory
- #include "tridgausselim.h"
-          ^~~~~~~~~~~~~~~~~
-compilation terminated.
