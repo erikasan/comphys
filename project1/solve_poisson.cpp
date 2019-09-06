@@ -56,7 +56,7 @@ int main()
 
     clock_t start, finish;
     start = clock();
-    
+
     u = solve_poisson(f, x0, X, n);       // Solve differential equation
 
     finish = clock();
