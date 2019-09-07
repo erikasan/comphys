@@ -4,30 +4,27 @@
 using namespace std;
 using namespace arma;
 
-void LUdcmp(double* A, double* L, double* U);
+
 
 int main()
 {
+  int N = 10;
+  int a = 1, b = -2;
+  Mat<double> A(N, N);
+  Mat<double> L, U;
+  vec row1 = zeros<vec>(N);
+  row1[0] = -2; row1[1] = 1;
 
-  int n;
-  cout << "Type in the dimension n of the matrix: n = ";
-  cin >> n;
+  A = toeplitz(row1, row1);
 
-  Mat<double> A(n, n), L(n, n), U(n, n);
+  lu(L, U, A);
 
-
-
-  cout << "Success!" << endl;
-  return 0;
-}
-
-void LUdcmp(double* A, double* L, double* U)
-{
-  // Step one
-  for (auto j = 0; j != A.n_cols; ++j) {
-    U(1, j) = A(1, j);
+  for (int i = 0; i != N; ++i) {
+    for (int j = 0; j != N; ++j) {
+      cout << L(i, j) << ' ';
+    }
+    cout << endl;
   }
 
-  // Step two
-
+  return 0;
 }
