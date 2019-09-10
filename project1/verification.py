@@ -3,18 +3,24 @@ import numpy as np, matplotlib.pyplot as plt
 def exact(x):
     return 1 - (1 - np.exp(-10))*x - np.exp(-10*x)
 
-n = 1e3
-data = np.loadtxt('poisson-n=1e%d.dat' % np.log10(n))
+n_points = np.array([10, 100, 1000])
 
-x = data[:, 0]; u = data[:, 1]; err = data[:, 2]
+fig, ax = plt.subplots(len(n_points) + 1)
+colors = ['red', 'green', 'blue', 'indigo']
 
-fig, ax = plt.subplots(3)
-
-ax[0].plot(x, u, 'blue')
-ax[1].plot(x, exact(x), 'green')
-ax[2].plot(x[1:-1], err[1:-1], 'red')
+x = np.linspace(0, 1, 1000)
+ax[0].plot(x, exact(x), colors[0])
+ax[0].legend(['Exact solution f(x)'])
 ax[0].grid()
-ax[1].grid()
-ax[2].grid()
+
+for n, i in zip(n_points, range(1, len(n_points) + 1)):
+    data = np.loadtxt('poisson-n=1e%d.dat' % np.log10(n))
+    x = data[:, 0]; u = data[:, 1]
+
+    ax[i].plot(x, u, colors[i])
+    ax[i].legend(['u(x), n = %d' % n])
+    ax[i].grid()
+
 plt.tight_layout()
-plt.show()
+plt.xlabel('x')
+plt.savefig('verification.png', type = 'png')
