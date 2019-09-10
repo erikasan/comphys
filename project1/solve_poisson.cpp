@@ -9,8 +9,10 @@
 
 using namespace std;
 
-ofstream outfile;
 
+double* error(unsigned int, double*, double*, double*, bool);
+
+ofstream outfile;
 
 int main()
 {
@@ -24,17 +26,21 @@ int main()
   // Begin while-loop
   while (cin >> input) {
 
-    n = (int) input;
+    n = (unsigned int) input;
 
     double *x = new double[n+2];          //Define array that holds the x values
 
 
-    double *f = new double[n+2];          // Define array that will contain
-                                          // the discretized f(x)
+    double *g = new double[n+2];          // Define array that will contain
+                                          // the discretized g(x)
+
+    double *f = new double[n+2];          // Define array to hold the analytical
+                                          // solution
 
     double *u = new double[n+2];          // Define array that will contain
                                           // the solution to the differential equation
 
+    double *err = new double[n+2];        // Define array to hold the relative error
 
     int x0 = 0, X = 1;                    // Define the interval [x0, X]
     x[0] = x0; x[n+1] = X;                // where we will solve
@@ -51,23 +57,29 @@ int main()
     }
 
     for (int i = 0; i != n+2; ++i) {
-      f[i] = 100*exp(-10*x[i]);
+      g[i] = 100*exp(-10*x[i]);
+    }
+
+    for (int i = 0; i != n+2; ++i) {
+      f[i] = 1 - (1 - exp(-10))*x[i] - exp(-10*x[i]);
     }
 
     clock_t start, finish;
     start = clock();
 
-    u = solve_poisson(f, x0, X, n);       // Solve differential equation
+    u = solve_poisson(g, x0, X, n);       // Solve differential equation
 
     finish = clock();
+
+    err = error(n, u, f, err, false);
 
     string outfilename = "poisson-n=1e"
     + to_string((int) log10(n)) + ".dat";
     outfile.open(outfilename);
 
     for (int i = 0; i != n+2; ++i) {      // Write to file
-      outfile << setw(15) << setprecision(8)
-      << x[i] << ' ' << u[i] << endl;
+      outfile << setw(20) << setprecision(16)
+      << x[i] << ' ' << u[i] << ' ' << err[i] << endl;
     }
 
     outfile.close();
@@ -81,4 +93,23 @@ int main()
 
 
   return 0;
+}
+
+double* error(unsigned int n, double *u, double *f, double *err, bool log = false)
+{
+  if (log) {
+    for (int i = 0; i != n+2; ++i) {
+      err[i] = log10(abs((u[i] - f[i])/f[i]));
+    }
+  }
+
+  else {
+    for (int i = 0; i != n+2; ++i) {
+      err[i] = abs((u[i] - f[i])/f[i]);
+  }
+
+
+  }
+
+  return err;
 }
