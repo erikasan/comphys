@@ -6,7 +6,8 @@ def exact(x):
 def error(u, exact):
     return np.abs((u - exact)/exact)
 
-N = np.array([1e2, 1e3, 1e4, 1e5, 1e6])
+#N = np.array([1e2, 1e3, 1e4, 1e5, 1e6])
+N = np.array([1e3])
 h = 1/(N + 1)
 
 eps = []
@@ -20,5 +21,6 @@ for n in N:
 
     eps.append(max_error)
 
-plt.plot(np.log10(N), np.log10(eps), 'o-')
+#plt.plot(np.log10(N), np.log10(eps), 'o-')
+plt.plot(x, u)
 plt.show()
