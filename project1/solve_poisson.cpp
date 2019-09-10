@@ -10,7 +10,11 @@
 using namespace std;
 
 
-double* error(unsigned int, double*, double*, double*, bool);
+double* error(unsigned int,
+              double*,
+              double*,
+              double*,
+              bool);
 
 ofstream outfile;
 
@@ -95,7 +99,11 @@ int main()
   return 0;
 }
 
-double* error(unsigned int n, double *u, double *f, double *err, bool log = false)
+double* error(unsigned int n,
+              double *u,
+              double *f,
+              double *err,
+              bool log = false)
 {
   if (log) {
     for (int i = 0; i != n+2; ++i) {
