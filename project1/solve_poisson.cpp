@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 #include <ctime>
+#include <algorithm>
 
 #include "solve_poisson.h"
 
@@ -16,7 +17,9 @@ double* error(unsigned int,
               double*,
               bool);
 
-ofstream outfile;
+ofstream outfile1;
+ofstream outfile2;
+ofstream outfile3;
 
 int main()
 {
@@ -26,6 +29,11 @@ int main()
   unsigned int n;                         // Number of integration points
 
   double h;                               // Stepsize
+
+  string filename2 = "errors.dat";
+  string filename3 = "CPU_time_simple.dat";
+  outfile2.open(filename2);
+  outfile3.open(filename3);
 
   // Begin while-loop
   while (cin >> input) {
@@ -71,30 +79,34 @@ int main()
     clock_t start, finish;
     start = clock();
 
-    u = solve_poisson(g, x0, X, n);       // Solve differential equation
+    u = solve_poisson(g, x0, X, n, true);       // Solve differential equation
 
     finish = clock();
 
-    err = error(n, u, f, err, false);
+    err = error(n, u, f, err, true);
 
-    string outfilename = "poisson-n=1e"
+    string filename1 = "poisson-n=1e"
     + to_string((int) log10(n)) + ".dat";
-    outfile.open(outfilename);
+    outfile1.open(filename1);
 
     for (int i = 0; i != n+2; ++i) {      // Write to file
-      outfile << setw(20) << setprecision(16)
-      << x[i] << ' ' << u[i] << ' ' << err[i] << endl;
+      outfile1 << setw(20) << setprecision(16)
+      << x[i] << ' ' << u[i] << endl;
     }
 
-    outfile.close();
+    outfile1.close();
 
-    cout << "n = 1e" + to_string((int) log10(n))
-    << " Total CPU Time: " << (double) (finish - start)/CLOCKS_PER_SEC
-    << " s" << endl;
+    outfile2 << setw(20) << setprecision(16)
+    << log10(h) << ' ' << *max_element(err + 1, err + n - 1) << endl;
+
+    outfile3 << setw(20) << setprecision(16)
+    << n << ' ' << (double) (finish - start)/CLOCKS_PER_SEC << endl;
 
 
   } // End while loop
 
+  outfile2.close();
+  outfile3.close();
 
   return 0;
 }
