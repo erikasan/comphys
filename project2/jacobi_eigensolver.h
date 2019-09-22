@@ -83,7 +83,9 @@ void rotate(unsigned int n,
 
 void jacobi_eigensolver(unsigned int n,
                         arma::mat& A,
-                        arma::mat& P)
+                        arma::mat& P,
+                        bool cnt_iterations = false,
+                        int* iterations = nullptr)
 
 {
   double a_pq, tol = 1e-10;
@@ -91,11 +93,24 @@ void jacobi_eigensolver(unsigned int n,
 
   P = arma::eye(n, n);
 
-  find_a_pq(n, A, &a_pq, &p, &q);
-  while (tol < a_pq){
-    rotate(n, A, P, p, q);
+  if (cnt_iterations){
     find_a_pq(n, A, &a_pq, &p, &q);
+    while (tol < a_pq){
+      rotate(n, A, P, p, q);
+      find_a_pq(n, A, &a_pq, &p, &q);
+      (*iterations)++;
+    }
   }
+
+  else {
+    find_a_pq(n, A, &a_pq, &p, &q);
+    while (tol < a_pq){
+      rotate(n, A, P, p, q);
+      find_a_pq(n, A, &a_pq, &p, &q);
+    }
+  }
+
+
 
   return;
 }
