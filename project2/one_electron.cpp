@@ -3,12 +3,17 @@
 #include <cmath>
 #include <fstream>
 #include <iomanip>
+#include <string>
+#include <cstdlib>
+
 
 
 #include "jacobi_eigensolver.h"
 
 using namespace std;
 using namespace arma;
+
+
 
 int main()
 {
@@ -38,6 +43,11 @@ int main()
   }
 
   jacobi_eigensolver(n, A, P);
+
+  vec eigvals = diagvec(A);
+
+  P.save("eigstates-n=" + to_string(n) + ".dat", raw_ascii);
+  eigvals.save("eigvals-n=" + to_string(n) + ".dat", raw_ascii);
 
   return 0;
 }
