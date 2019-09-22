@@ -21,7 +21,12 @@ void find_a_pq(unsigned int n,
   return;
 }
 
-void rotate(unsigned int n, arma::mat& A, unsigned int p, unsigned int q)
+void rotate(unsigned int n,
+            arma::mat& A,
+            arma::mat& P,
+            unsigned int p,
+            unsigned int q)
+
 {
   double tau, t, c, s;
   if (A(p, q) != 0) {
@@ -41,7 +46,7 @@ void rotate(unsigned int n, arma::mat& A, unsigned int p, unsigned int q)
   }
 
   double c2 = c*c, s2 = s*s;
-  double a_pp, a_qq, two_a_pq_cs, a_ip, a_iq;
+  double a_pp, a_qq, two_a_pq_cs, a_ip, a_iq, c_p_ip, s_p_iq;
 
   a_pp = A(p, p); a_qq = A(q, q); two_a_pq_cs = 2*A(p, q)*c*s;
 
@@ -55,25 +60,31 @@ void rotate(unsigned int n, arma::mat& A, unsigned int p, unsigned int q)
       A(i, p) = a_ip*c - a_iq*s;
       A(i, q) = a_iq*c + a_ip*s;
       A(p, i) = A(i, p); A(q, i) = A(i, q);
+
     }
+    c_p_ip = c*P(i, p); s_p_iq = s*P(i, q);
+    P(i, p) = c_p_ip - s_p_iq;
+    P(i, q) = c_p_ip + s_p_iq;
   }
 
   return;
 }
 
-void jacobi_eigensolver(unsigned int n, arma::mat& A, arma::mat& eigvals)
+void jacobi_eigensolver(unsigned int n,
+                        arma::mat& A,
+                        arma::mat& P)
+
 {
   double a_pq, tol = 1e-10;
   unsigned int p, q;
 
+  P = arma::eye(n, n);
+
   find_a_pq(n, A, &a_pq, &p, &q);
   while (tol < a_pq){
-    rotate(n, A, p, q);
+    rotate(n, A, P, p, q);
     find_a_pq(n, A, &a_pq, &p, &q);
   }
-
-  eigvals = arma::diagvec(A);
-  eigvals = arma::sort(eigvals);
 
   return;
 }
