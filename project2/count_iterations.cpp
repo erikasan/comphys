@@ -3,16 +3,21 @@
 #include <cmath>
 #include <fstream>
 #include <iomanip>
+#include <string>
+#include <ctime>
 
 #include "jacobi_eigensolver.h"
 
 using namespace std;
 using namespace arma;
 
+ofstream outfile;
+
 int main()
 {
   vec N = regspace(10, 10, 100);
-
+  string filename = "cnt_iterations.dat";
+  outfile.open(filename);
   for (auto n : N) {
     Mat<double> A(n, n);
     Mat<double> P(n, n);
@@ -34,9 +39,18 @@ int main()
 
     int iterations;
     int *p_iterations = &iterations;
-    jacobi_eigensolver(n, A, P, true, p_iterations);
-  }
 
+    clock_t start, finish;
+    start = clock();
+    jacobi_eigensolver(n, A, P, true, p_iterations);
+    finish = clock();
+
+    outfile << setw(10) << setprecision(10)
+    << n << ' ' << iterations << ' '
+    << (double) (finish - start)/CLOCKS_PER_SEC << endl;
+
+  }
+  outfile.close();
 
   return 0;
 }
