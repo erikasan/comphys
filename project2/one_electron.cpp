@@ -17,8 +17,8 @@ int main()
   double h = (double) (rho_max - rho_min)/(n + 2);
 
   Mat<double> A(n, n);
+  Mat<double> P(n, n);
   Col<double> u(n);
-  Col<double> eigvals(n);
 
   Col<double> rho = linspace<Col<double>>(rho_min + h, rho_max - h, n);
   Col<double> V = pow(rho, 2);
@@ -34,9 +34,12 @@ int main()
     A(i, i+1) = e;
   }
 
-  jacobi_eigensolver(n, A, eigvals);
+  A(0, 0) = 10; A(0, 1) = 2;
+  A(1, 0) = 2; A(1, 1) = 10;
 
-  cout << eigvals << endl;
+  jacobi_eigensolver(n, A, P);
+
+  cout << P << endl;
 
 
   return 0;
