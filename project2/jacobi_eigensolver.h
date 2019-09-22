@@ -1,4 +1,15 @@
+/*
 
+  Reduces a real symmetric n x n -
+  matrix A into a diagonal matrix with
+  its eigenvalues along the diagonal.
+  Also builds an n x n - matrix P with
+  the normalized eigenvectors of A as its columns.
+
+  Make sure to include Armadillo
+  and cmath in the main program
+
+*/
 
 void find_a_pq(unsigned int n,
                arma::mat A,

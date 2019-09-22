@@ -34,13 +34,7 @@ int main()
     A(i, i+1) = e;
   }
 
-  A(0, 0) = 10; A(0, 1) = 2;
-  A(1, 0) = 2; A(1, 1) = 10;
-
   jacobi_eigensolver(n, A, P);
-
-  cout << P << endl;
-
 
   return 0;
 }
