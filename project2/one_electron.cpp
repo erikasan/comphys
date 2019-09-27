@@ -6,14 +6,10 @@
 #include <string>
 #include <cstdlib>
 
-
-
 #include "jacobi_eigensolver.h"
 
 using namespace std;
 using namespace arma;
-
-
 
 int main()
 {
