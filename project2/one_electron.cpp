@@ -19,6 +19,8 @@ int main()
 {
 
   unsigned int n;
+  cout << "Input the number of integration points" << endl;
+  cout << "n = ";
   cin >> n;
 
   double rho_min = 0, rho_max = 10;
@@ -48,6 +50,8 @@ int main()
 
   P.save("eigstates-n=" + to_string(n) + ".dat", raw_ascii);
   eigvals.save("eigvals-n=" + to_string(n) + ".dat", raw_ascii);
+
+  cout << "Done!" << endl;
 
   return 0;
 }
