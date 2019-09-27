@@ -18,18 +18,3 @@ plt.grid()
 plt.grid()
 plt.tight_layout()
 plt.show()
-
-'''
-# Plot CPU time vs matrix dimension
-plt.style.use('fivethirtyeight')
-plt.grid()
-plt.grid()
-plt.plot(n, CPUtime)
-plt.tight_layout()
-plt.show()
-'''
-
-
-
-# CPUtime, least squares and error analysis
-#p, error = np.polyfit(n, CPUtime, 3, cov = True)
