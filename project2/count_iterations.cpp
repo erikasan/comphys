@@ -15,7 +15,7 @@ ofstream outfile;
 
 int main()
 {
-  vec N = regspace(10, 10, 100);
+  vec N = regspace(10, 5, 200);
   string filename = "cnt_iterations.dat";
   outfile.open(filename);
   for (auto n : N) {
@@ -51,6 +51,6 @@ int main()
 
   }
   outfile.close();
-
+  cout << "Done!" << endl;
   return 0;
 }
