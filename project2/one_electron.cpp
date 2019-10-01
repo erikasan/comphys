@@ -16,8 +16,8 @@ ofstream outfile;
 int main()
 {
 
-  vec N = regspace(100, 10, 400);
-  vec infinity = regspace(10, 5, 80);
+  vec N = regspace(100, 10, 200);
+  vec infinity = regspace(5, 2, 20);
 
   string filename = "lambda=3.dat";
   outfile.open(filename);
@@ -26,13 +26,13 @@ int main()
     for (auto rho_max : infinity) {
 
       double rho_min = 0;
-      double h = (double) (rho_max - rho_min)/(n + 2);
+      double h = (double) (rho_max - rho_min)/n;
 
-      Mat<double> A(n, n);
-      Mat<double> P(n, n);
+      mat A(n, n);
+      mat P(n, n);
 
-      Col<double> rho = linspace<Col<double>>(rho_min + h, rho_max - h, n);
-      Col<double> V = pow(rho, 2);
+      vec rho = linspace<Col<double>>(rho_min + h, rho_max - h, n);
+      vec V = pow(rho, 2);
 
       double h2 = h*h;
       double e = -1/h2;

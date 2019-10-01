@@ -73,9 +73,9 @@ void rotate(unsigned int n,
       A(p, i) = A(i, p); A(q, i) = A(i, q);
 
     }
-    c_p_ip = c*P(i, p); s_p_iq = s*P(i, q);
-    P(i, p) = c_p_ip - s_p_iq;
-    P(i, q) = c_p_ip + s_p_iq;
+    double p_ip = P(i, p), p_iq = P(i, q);
+    P(i, p) = c*p_ip - s*p_iq;
+    P(i, q) = c*p_iq + s*p_ip;
   }
 
   return;
@@ -109,8 +109,6 @@ void jacobi_eigensolver(unsigned int n,
       find_a_pq(n, A, &a_pq, &p, &q);
     }
   }
-
-
 
   return;
 }

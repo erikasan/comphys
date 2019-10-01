@@ -45,7 +45,7 @@ int main()
     jacobi_eigensolver(n, A, P, true, p_iterations);
     finish = clock();
 
-    outfile << setw(10) << setprecision(10)
+    outfile << setw(6) << setprecision(6)
     << n << ' ' << iterations << ' '
     << (double) (finish - start)/CLOCKS_PER_SEC << endl;
 
