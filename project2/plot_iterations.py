@@ -33,10 +33,6 @@ plt.plot(n, iterations, marker = 'o', color = colors[0])
 
 plt.xlabel(r'Matrix dimension $n$'); plt.ylabel('# of iterations')
 
-plt.grid()
-
-plt.grid()
-
 plt.tight_layout()
 
 plt.show()

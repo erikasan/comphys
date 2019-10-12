@@ -1,6 +1,6 @@
 import numpy as np, matplotlib.pyplot as plt
 
-omega = 0.01
+omega = 5
 
 n = 300;
 
