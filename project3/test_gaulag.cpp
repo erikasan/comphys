@@ -1,6 +1,6 @@
 #include <iostream>
-#include <armadillo>
 #include <cmath>
+#include <armadillo>
 
 #include "gauquad.cpp"
 
@@ -11,21 +11,21 @@ double f(double x);
 
 int main()
 {
-  int n = 3;
-  double x1 = 0, x2 = M_PI;
+  int n = 6;
+  double x1 = 0, x2 = 10;
   double *x = new double[n], *w = new double[n];
-  double int_gauleg = 0;
-  gauleg(x1, x2, x, w, n);
+  double int_gaulag = 0;
+  gaulag(x, w, n, 0);
 
   for (int i = 0; i != n; ++i) {
-    int_gauleg += w[i]*f(x[i]);
+    int_gaulag += w[i]*f(x[i]);
   }
 
-  cout << int_gauleg << endl;
+  cout << int_gaulag << endl;
   return 0;
 }
 
 double f(double x)
 {
-  return sin(x);
+  return 1;
 }
