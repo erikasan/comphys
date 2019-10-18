@@ -12,7 +12,7 @@ double f( double     r1, double     r2,
 int main()
 {
 
-  int Nr = 30, Nphi = 30, Ntheta = 30;
+  int Nr = 10, Nphi = 10, Ntheta = 10;
 
   double alpha = 2;
 
@@ -45,7 +45,7 @@ int main()
   I +=  wr[i]*wr[j]*wphi[k]*wphi[l]*wtheta[m]*wtheta[n]
     *  f(r[i], r[j], phi[k], phi[l], theta[m], theta[n]);
 
-            }}}}}}
+  }}}}}}
 
   I /= pow(2*alpha, 5);
 
