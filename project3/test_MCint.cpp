@@ -9,7 +9,7 @@ double f(double x, double y);
 int main()
 {
   int N = 700000;
-  double lam = 5;
+  double lam = 3;
 
   random_device rd;
   mt19937_64 gen(rd());

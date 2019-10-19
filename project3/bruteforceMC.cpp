@@ -9,8 +9,8 @@ double f ( double x1, double y1, double z1,
 
 int main()
 {
-  int N = 2000000;
-  double lam = 2;
+  int N = 5000000;
+  double lam = 3;
 
   random_device rd;
   mt19937_64 gen(rd());
@@ -19,24 +19,18 @@ int main()
   double x1, y1, z1,
          x2, y2, z2;
 
-  double u;
-
-  double I = 0;
+  double I = 0; double u;
   for (int i = 0; i != N; ++i) {
-    u = RandomNumberGenerator(gen);
-    x1 = lam*(2*u - 1);
-    u = RandomNumberGenerator(gen);
-    x2 = lam*(2*u - 1);
-    u = RandomNumberGenerator(gen);
-    y1 = lam*(2*u - 1);
-    u = RandomNumberGenerator(gen);
-    y2 = lam*(2*u - 1);
-    u = RandomNumberGenerator(gen);
-    z1 = lam*(2*u - 1);
-    u = RandomNumberGenerator(gen);
-    z2 = lam*(2*u - 1);
+
+    u = RandomNumberGenerator(gen); x1 = lam*(2*u - 1);
+    u = RandomNumberGenerator(gen); x2 = lam*(2*u - 1);
+    u = RandomNumberGenerator(gen); y1 = lam*(2*u - 1);
+    u = RandomNumberGenerator(gen); y2 = lam*(2*u - 1);
+    u = RandomNumberGenerator(gen); z1 = lam*(2*u - 1);
+    u = RandomNumberGenerator(gen); z2 = lam*(2*u - 1);
 
     I += f(x1, y1, z1, x2, y2, z2, 2);
+
   }
 
   I *= pow(2*lam, 6);
@@ -57,7 +51,7 @@ double f ( double x1, double y1, double z1,
                   + pow(y2 - y1, 2)
                   + pow(z2 - z1, 2));
 
-  double eps = 1e-10;
+  double eps = 1e-4;
   if ( abs(r12) < eps ) { return 0 ;}
   else                  { return exp(-2*alpha*(r1 + r2))/r12 ;}
 
