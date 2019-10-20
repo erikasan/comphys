@@ -46,7 +46,7 @@ void gauleg(double x1, double x2, double x[], double w[], int n)
       z = cos(pi * (i - 0.25)/(n + 0.5));
 
            /*
-	   ** Starting with the above approximation to the ith root
+	         ** Starting with the above approximation to the ith root
            ** we enter the mani loop of refinement bt Newtons method.
            */
 
@@ -54,8 +54,8 @@ void gauleg(double x1, double x2, double x[], double w[], int n)
          p1 =1.0;
 	 p2 =0.0;
 
-   	   /*
-	   ** loop up recurrence relation to get the
+   	       /*
+	         ** loop up recurrence relation to get the
            ** Legendre polynomial evaluated at x
            */
 
@@ -65,8 +65,8 @@ void gauleg(double x1, double x2, double x[], double w[], int n)
 	    p1 = ((2.0 * j - 1.0) * z * p2 - (j - 1.0) * p3)/j;
 	 }
 
-	   /*
-	   ** p1 is now the desired Legrendre polynomial. Next compute
+	         /*
+	         ** p1 is now the desired Legrendre polynomial. Next compute
            ** ppp its derivative by standard relation involving also p2,
            ** polynomial of one lower order.
            */
@@ -77,7 +77,7 @@ void gauleg(double x1, double x2, double x[], double w[], int n)
       } while(fabs(z - z1) > ZERO);
 
           /*
-	  ** Scale the root to the desired interval and put in its symmetric
+	        ** Scale the root to the desired interval and put in its symmetric
           ** counterpart. Compute the weight and its symmetric counterpart
           */
 

@@ -12,7 +12,7 @@ double f( double     r1, double     r2,
 int main()
 {
 
-  int Nr = 10, Nphi = 10, Ntheta = 10;
+  int Nr = 30, Nphi = 15, Ntheta = 15;
 
   double alpha = 2;
 

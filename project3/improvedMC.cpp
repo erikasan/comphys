@@ -10,7 +10,7 @@ double f( double     r1, double     r2,
 
 int main()
 {
-  int N = 10000000;
+  int N = 5000000;
 
   const double     pi = 3.14159265358979323846,
                two_pi = 2*pi;
@@ -57,7 +57,7 @@ double f( double     r1, double     r2,
   double r12     = sqrt(pow(r1, 2) + pow(r2, 2) - 2*r1*r2*cosbeta);
 
 
-  if (r12 <= 0 || isnan(r12)) { return 0 ;}
+  if (r12 <= 1e-4 || isnan(r12)) { return 0 ;}
 
   else { return r1*r1*r2*r2*sin(theta1)*sin(theta2)*exp(-4*(r1 + r2))/r12 ;}
 
