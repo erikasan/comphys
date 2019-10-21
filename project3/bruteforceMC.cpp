@@ -41,7 +41,7 @@ int main()
 }
 
 double f ( double x1, double y1, double z1,
-           double x2, double y2, double z2, double alpha )
+           double x2, double y2, double z2)
 {
 
   double r1  = sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2));
@@ -52,7 +52,7 @@ double f ( double x1, double y1, double z1,
                   + pow(z2 - z1, 2));
 
   double eps = 1e-4;
-  if ( abs(r12) < eps ) { return 0 ;}
-  else                  { return exp(-2*alpha*(r1 + r2))/r12 ;}
+  if ( abs(r12) < eps ) { return 0                     ;}
+  else                  { return exp(-4*(r1 + r2))/r12 ;}
 
 }

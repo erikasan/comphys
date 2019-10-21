@@ -34,10 +34,14 @@ int main()
     u = RandomNumberGenerator(gen); theta1 =       pi*u ;
     u = RandomNumberGenerator(gen); theta2 =       pi*u ;
 
-    I += f(r1, r2, phi1, phi2, theta1, theta2)/(exp(-(r1 + r2)));
+    I += r1*r1 * r2*r2
+      *  sin(theta1)*sin(theta2)
+      *  exp(r1 + r2)
+      *  f(r1,  r2, phi1, phi2, theta1, theta2);
+
   }
 
-  I *= 2*2*pi*pi*pi*pi;
+  I *= 4*pi*pi*pi*pi;
 
   I /= N;
 
@@ -57,8 +61,7 @@ double f( double     r1, double     r2,
   double r12     = sqrt(pow(r1, 2) + pow(r2, 2) - 2*r1*r2*cosbeta);
 
 
-  if (r12 <= 1e-4 || isnan(r12)) { return 0 ;}
-
-  else { return r1*r1*r2*r2*sin(theta1)*sin(theta2)*exp(-4*(r1 + r2))/r12 ;}
+  if (r12 <= 1e-4 || isnan(r12)) { return 0                     ;}
+  else                           { return exp(-4*(r1 + r2))/r12 ;}
 
 }
