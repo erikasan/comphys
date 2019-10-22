@@ -21,7 +21,6 @@ int main()
   bool append = 1;
 
   int N;
-  int Nr, Nphi, Ntheta;
 
   double alpha = 2;
 
@@ -41,32 +40,30 @@ int main()
 
   while (cin >> N) {
 
-    Nr = Nphi = Ntheta = N/3;
+    double *      r = new double [N+1],
+           *    phi = new double [ N ],
+           *  theta = new double [ N ],
 
-    double *      r = new double [Nr + 1],
-           *    phi = new double [ Nphi ],
-           *  theta = new double [Ntheta],
-
-           *     wr = new double [Nr + 1],
-           *   wphi = new double [ Nphi ],
-           * wtheta = new double [Ntheta];
+           *     wr = new double [N+1],
+           *   wphi = new double [ N ],
+           * wtheta = new double [ N ];
 
     start = clock();
 
-    gaulag(r, wr, Nr, alpha);
+    gaulag(r, wr, N, alpha);
 
-    gauleg(0, two_pi, phi, wphi, Nphi);
+    gauleg(0, two_pi, phi, wphi, N);
 
-    gauleg(0, pi, theta, wtheta, Ntheta);
+    gauleg(0, pi, theta, wtheta, N);
 
     I = 0;
 
-    for (int i = 1; i != Nr+1; ++i) {
-              for (int j = 1; j != Nr+1;   ++j) {
-              for (int k = 0; k != Nphi;   ++k) {
-              for (int l = 0; l != Nphi;   ++l) {
-              for (int m = 0; m != Ntheta; ++m) {
-              for (int n = 0; n != Ntheta; ++n) {
+    for (int i = 1; i != N+1; ++i) {
+              for (int j = 1; j != N+1; ++j) {
+              for (int k = 0; k != N  ; ++k) {
+              for (int l = 0; l != N  ; ++l) {
+              for (int m = 0; m != N  ; ++m) {
+              for (int n = 0; n != N  ; ++n) {
 
     I +=  wr[i]*wr[j]*wphi[k]*wphi[l]*wtheta[m]*wtheta[n]
       *  f(r[i], r[j], phi[k], phi[l], theta[m], theta[n]);
@@ -79,7 +76,7 @@ int main()
 
     outfile << setw(8) << setprecision(10)
 
-    << Nr+Nphi+Ntheta << ' ' << I << ' '
+    << 6*N << ' ' << I << ' '
 
     << abs(I - exact) << ' ' << (double) (stop - start)/CLOCKS_PER_SEC
 

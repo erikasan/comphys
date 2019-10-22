@@ -22,13 +22,13 @@ int main()
   int      N    ;
   double lam = 3;
 
-  const double     pi = 3.14159265358979323846;
-  double exact = 5*pi*pi/(16*16);
+  const double    pi = 3.14159265358979323846;
+  const double exact = 5*pi*pi/(16*16);
 
   double *x = new double [N],
          *w = new double [N];
 
-  string       filename = "cartesian_gauleg.dat";
+  string filename = "cartesian_gauleg.dat";
 
   if (append) { outfile.open(filename, ofstream::app) ;}
   else        { outfile.open(filename)                ;}
@@ -61,7 +61,7 @@ int main()
 
     outfile << setw(8) << setprecision(10)
 
-    << N << ' ' << I << ' '
+    << 6*N << ' ' << I << ' '
 
     << abs(I - exact) << ' ' << (double) (stop - start)/CLOCKS_PER_SEC
 

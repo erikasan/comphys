@@ -3,10 +3,11 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
-#include <ctime>
 #include <random>
+#include <armadillo>
 
 using namespace std;
+using namespace arma;
 
 double f ( double x1, double y1, double z1,
            double x2, double y2, double z2 );
@@ -16,67 +17,59 @@ ofstream outfile;
 int main()
 {
 
-  bool append = 1;
+  bool append =  0;
 
-  int N;
-  double lam = 3;
+  int N, M    = 10;
+  double lam  = 3 ;
 
   double x1, y1, z1,
          x2, y2, z2;
 
-  double I, u, sigma, F;
+  double I; double u;
 
-  const double    pi = 3.14159265358979323846;
-  const double exact = 5*pi*pi/(16*16);
+  vec Ivec(10);
+  double sigma;
 
   random_device rd;
   mt19937_64 gen(rd());
   uniform_real_distribution<double> RandomNumberGenerator(0.0,1.0);
 
-  clock_t start, stop;
-
-  string filename = "bruteforceMC.dat";
+  string filename = "bruteforceSTD.dat";
 
   if (append) { outfile.open(filename, ofstream::app) ;}
   else        { outfile.open(filename)                ;}
 
   while (cin >> N) {
 
-    I = 0; sigma = 0;
+    for (int m = 0; m != M; ++m) {
 
-    start = clock();
+      I = 0;
 
-    for (int i = 0; i != N; ++i) {
+      for (int i = 0; i != N; ++i) {
 
-      u = RandomNumberGenerator(gen); x1 = lam*(2*u - 1);
-      u = RandomNumberGenerator(gen); x2 = lam*(2*u - 1);
-      u = RandomNumberGenerator(gen); y1 = lam*(2*u - 1);
-      u = RandomNumberGenerator(gen); y2 = lam*(2*u - 1);
-      u = RandomNumberGenerator(gen); z1 = lam*(2*u - 1);
-      u = RandomNumberGenerator(gen); z2 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); x1 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); x2 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); y1 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); y2 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); z1 = lam*(2*u - 1);
+        u = RandomNumberGenerator(gen); z2 = lam*(2*u - 1);
 
-      F = f(x1, y1, z1, x2, y2, z2);
-      I += F;
-      sigma += F*F;
+        I += f(x1, y1, z1, x2, y2, z2);
+
+      }
+
+      I *= pow(2*lam, 6);
+      I /= N;
+
+      Ivec[m] = I;
 
     }
 
-    I *= pow(2*lam, 6);
-    I /= N;
-
-    stop = clock();
-
-    sigma *= pow(2*lam, 12)/N;
-    sigma -= I*I;
-    sigma = sqrt(sigma);
+    sigma = sqrt((M - 1)/((double) M))*stddev(Ivec);
 
     outfile << setw(8) << setprecision(10)
 
-    << N << ' ' << I << ' '
-
-    << abs(I - exact) << ' ' << (double) (stop - start)/CLOCKS_PER_SEC
-
-    << ' ' << sigma << endl;
+    << N << ' ' << sigma << endl;
 
   }
 
