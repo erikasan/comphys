@@ -74,8 +74,6 @@ int main()
   delete [] x;
   delete [] w;
 
-  cout << "Done!" << endl;
-
   return 0;
 
 }
