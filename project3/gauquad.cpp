@@ -1,10 +1,3 @@
-/*
-
-  Shameless copying from
-  https://github.com/CompPhysics/ComputationalPhysics/blob/master/doc/Projects/2019/Project3/CodeExamples/exampleprogram.cpp
-
-*/
-
 #include <cmath>
 #include <iostream>
 #include <fstream>
