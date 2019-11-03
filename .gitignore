@@ -3,3 +3,8 @@
 *.o
 *.png
 *.out
+*.config
+*.creator
+*.user
+*.files
+*.includes
