@@ -7,22 +7,36 @@ using namespace std;
 using namespace arma;
 
 void initialize(int N, double &E, double T, imat &spins, vec w);
-void metropolis(int N, double &E, imat &spins);
+void metropolis(int N, double &E, imat &spins, vec w);
 inline int periodic(int index, int limit);
 
 int main()
 {
 
-  int N = 2; double E = 0;
+  int N = 5; double E = 0;
   double T = 2;
 
   imat spins(N, N); vec w(17);
 
+  int MC = 100000;
+
+  vec energy(MC);
+
   initialize(N, E, T, spins, w);
+
+  for (int mc = 0; mc < MC; ++mc) {
+
+    metropolis(N, E, spins, w);
+
+    energy(mc) = E;
+
+  }
 
   cout << spins << endl;
 
-  cout << E << endl;
+  energy.save("energy.dat", raw_ascii);
+
+  cout << "Done" << endl;
 
   return 0;
 }
@@ -56,7 +70,7 @@ void initialize(int N, double &E, double T, imat &spins, vec w)
   E *= -1;
 
   for (int dE = -8; dE <= 8; dE += 4) w(dE + 8) = exp(-dE/T);
-
+  cout << w << endl;
   return;
 
 }
@@ -70,13 +84,13 @@ void metropolis(int N, double &E, imat &spins, vec w)
 
   int l, k;
 
-  double dE;
+  int dE;
 
   for (int i = 0; i < N; ++i) {
   for (int j = 0; j < N; ++j) {
 
-    l = (int) RandomNumberGenerator(gen) * (double) N;
-    k = (int) RandomNumberGenerator(gen) * (double) N;
+    l = (int) (RandomNumberGenerator(gen) * (double) N);
+    k = (int) (RandomNumberGenerator(gen) * (double) N);
 
     dE = 2*spins(l, k)* (   spins(periodic(l - 1, N), k)
                           + spins(periodic(l + 1, N), k)
@@ -85,6 +99,7 @@ void metropolis(int N, double &E, imat &spins, vec w)
                         );
 
     if (RandomNumberGenerator(gen) <= w(dE + 8)) {
+      cout << "lol" << endl;
       spins(l, k) *= -1;
       E += dE;
     }
