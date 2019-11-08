@@ -5,14 +5,19 @@
 using namespace std;
 using namespace arma;
 
+void initialize(imat &spins, int N);
+
 int main()
 {
 
-  int N = 0; int E = 0;
-  imat spins = ones<imat>(N, N);
+  int N = 100; int E = 0;
+  //imat spins(N, N); spins.ones();
 
-  spins(0, 0) = -1;
-  spins(1, 1) = -1;
+  imat spins(N, N);
+
+  initialize(spins, N);
+
+  cout << spins << endl;
 
   int im1 = N - 1;
   int jm1 = N - 1;
@@ -30,4 +35,23 @@ int main()
   cout << E << endl;
 
   return 0;
+}
+
+void initialize(imat &spins, int N)
+{
+
+  random_device rd;
+  mt19937_64 gen(rd());
+  uniform_real_distribution<double> RandomNumberGenerator(0.0,1.0);
+
+  for (int i = 0; i < N; ++i) {
+  for (int j = 0; j < N; ++j) {
+
+      if (RandomNumberGenerator(gen) > 0.5) {spins(i, j) =  1;}
+      else                                  {spins(i, j) = -1;}
+
+    }}
+
+  cout << spins << endl;
+  return;
 }
