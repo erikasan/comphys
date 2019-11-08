@@ -1,45 +1,33 @@
 #include <iostream>
 #include <armadillo>
+#include <cmath>
 #include <random>
 
 using namespace std;
 using namespace arma;
 
-void initialize(int N, imat &spins, vec w);
-void metropolis(int N, imat spins);
+void initialize(int N, double &E, double T, imat &spins, vec w);
+void metropolis(int N, double &E, imat &spins);
 inline int periodic(int index, int limit);
 
 int main()
 {
 
-  int N = 100; int E = 0;
-  //imat spins(N, N); spins.ones();
+  int N = 2; double E = 0;
+  double T = 2;
 
   imat spins(N, N); vec w(17);
 
-  initialize(spins, N);
+  initialize(N, E, T, spins, w);
 
   cout << spins << endl;
-
-  int im1 = N - 1;
-  int jm1 = N - 1;
-
-  for (int i = 0; i != N; ++i) {
-  for (int j = 0; j != N; ++j) {
-
-    E += spins(i, j)*(spins(im1, j) + spins(i, jm1));
-
-    jm1 = j; }
-    im1 = i; }
-
-  E *= -1;
 
   cout << E << endl;
 
   return 0;
 }
 
-void initialize(int N, imat &spins, vec w)
+void initialize(int N, double &E, double T, imat &spins, vec w)
 {
 
   random_device rd;
@@ -54,11 +42,26 @@ void initialize(int N, imat &spins, vec w)
 
     }}
 
-  cout << spins << endl;
+  int im1 = N - 1;
+  int jm1 = N - 1;
+
+  for (int i = 0; i != N; ++i) {
+  for (int j = 0; j != N; ++j) {
+
+    E += spins(i, j)*(spins(im1, j) + spins(i, jm1));
+
+    jm1 = j; }
+    im1 = i; }
+
+  E *= -1;
+
+  for (int dE = -8; dE <= 8; dE += 4) w(dE + 8) = exp(-dE/T);
+
   return;
+
 }
 
-void metropolis(imat spins, int N)
+void metropolis(int N, double &E, imat &spins, vec w)
 {
 
   random_device rd;
@@ -72,17 +75,23 @@ void metropolis(imat spins, int N)
   for (int i = 0; i < N; ++i) {
   for (int j = 0; j < N; ++j) {
 
-    l = (int) RandomNumberGenerator(gen)*N;
-    k = (int) RandomNumberGenerator(gen)*N;
+    l = (int) RandomNumberGenerator(gen) * (double) N;
+    k = (int) RandomNumberGenerator(gen) * (double) N;
 
     dE = 2*spins(l, k)* (   spins(periodic(l - 1, N), k)
                           + spins(periodic(l + 1, N), k)
                           + spins(l, periodic(k - 1, N))
                           + spins(l, periodic(k + 1, N))
-                        )
+                        );
+
+    if (RandomNumberGenerator(gen) <= w(dE + 8)) {
+      spins(l, k) *= -1;
+      E += dE;
+    }
+
     }}
 
-
+ return;
 
 }
 
