@@ -55,7 +55,8 @@ void ising(int N, vec Temps, int mcs)
 
 void initialize(int N, double &E, double &M, double T, imat &spins, vec &w)
 {
-  E = M = 0;
+
+  E = M = 0; // Never forget
 
   random_device rd;
   mt19937_64 gen(rd());
@@ -99,8 +100,7 @@ void metropolis(int N, double &E, double &M, imat &spins, vec w)
 
   int dE;
 
-  for (int i = 0; i < N; ++i) {
-  for (int j = 0; j < N; ++j) {
+  for (int i = 0; i < (int) N*N; ++i) {
 
     l = (int) (RandomNumberGenerator(gen) * (double) N);
     k = (int) (RandomNumberGenerator(gen) * (double) N);
@@ -117,8 +117,7 @@ void metropolis(int N, double &E, double &M, imat &spins, vec w)
       M += (double) 2*spins(l, k);
 
     }
-
-  }}
+  }
 
  return;
 
