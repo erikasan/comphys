@@ -9,12 +9,14 @@ void ising(int N, vec Temps, int mcs)
 
   imat spins(N, N); vec w(17);
 
-  mat data(mcs, 7);
+  mat data(mcs, 9);
 
   vec mcsrange = regspace(1, mcs);
 
-  for (double T : Temps) {
+  #pragma omp parallel for
+  for (int i = 0; i < Temps.n_elem; ++i) {
 
+    double T = Temps[i];
     initialize(N, E, M, T, spins, w);
 
     for (int mc = 0; mc < mcs; ++mc) {
@@ -26,7 +28,7 @@ void ising(int N, vec Temps, int mcs)
     }
 
     // Calculate <E> and <E^2>
-    data(span::all, 1) = cumsum(       data(span::all, 0)) /mcsrange;
+    data(span::all, 1) = cumsum(        data(span::all, 0))/mcsrange;
     data(span::all, 2) = cumsum(square(data(span::all, 0)))/mcsrange;
 
     // Calculate <M>, <M^2> and <|M|>
@@ -34,7 +36,16 @@ void ising(int N, vec Temps, int mcs)
     data(span::all, 5) = cumsum(square(data(span::all, 3)))/mcsrange;
     data(span::all, 6) = cumsum(   abs(data(span::all, 3)))/mcsrange;
 
-    sprintf(filename, "data-T=%.2f.dat", T);
+    // Calculate Cv and X
+
+    data(span::all, 7) = (data(span::all, 2) - square(data(span::all, 1)))/(T*T);
+    data(span::all, 8) = (data(span::all, 5) - square(data(span::all, 4)))/T;
+
+    // Normalize
+
+    data /= (N*N);
+
+    sprintf  (filename, "data-N=%d-T=%.2f.dat", N, T);
     data.save(filename, raw_ascii);
 
   }
@@ -44,6 +55,7 @@ void ising(int N, vec Temps, int mcs)
 
 void initialize(int N, double &E, double &M, double T, imat &spins, vec &w)
 {
+  E = M = 0;
 
   random_device rd;
   mt19937_64 gen(rd());
@@ -99,10 +111,11 @@ void metropolis(int N, double &E, double &M, imat &spins, vec w)
                            + spins(l, periodic(k + 1, N))
                          ) ;
 
-    if (dE <= 0 || RandomNumberGenerator(gen) <= w(dE + 8)) {
+    if (RandomNumberGenerator(gen) <= w(dE + 8)) {
       spins(l, k) *= -1;
       E += (double) dE;
       M += (double) 2*spins(l, k);
+
     }
 
   }}
