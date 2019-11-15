@@ -5,6 +5,8 @@
 #include <string>
 #include <random>
 
+#include <omp.h>
+
 #ifndef ising_montecarlo
 #define ising_montecarlo
 #pragma once

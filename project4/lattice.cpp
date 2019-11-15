@@ -24,8 +24,9 @@ int main()
 {
 
   int N = 40;
-  vec T = regspace(2.0, 0.05, 2.31);
-  int mcs = 1000000;
+  //vec T   = regspace(2.0, 0.05, 2.0);
+  vec T = regspace(2.20, 0.02, 2.31);
+  int mcs = 500000;
 
   ising(N, T, mcs);
 

@@ -2,7 +2,8 @@ import numpy as np, matplotlib.pyplot as plt
 
 plt.style.use('fivethirtyeight')
 
-T = np.arange(2.20, 2.41, 0.02)
+N = 40
+T = np.arange(2.20, 2.31, 0.02)
 
 meanE  = np.zeros(len(T))
 meanE2 = np.zeros(len(T))
@@ -13,7 +14,7 @@ Cv     = np.zeros(len(T))
 X      = np.zeros(len(T))
 
 for i, t in zip(range(len(T)), T):
-    data      = np.loadtxt('data-T=%.2f.dat' % t)
+    data      = np.loadtxt('data-N=%d-T=%.2f.dat' % (N, t))
     meanE [i] = np.mean(data[:, 1])
     meanE2[i] = np.mean(data[:, 2])
     meanM [i] = np.mean(data[:, 4])

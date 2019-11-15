@@ -3,18 +3,18 @@
 void ising(int N, vec Temps, int mcs)
 {
 
-  double E = 0, M = 0;
-
-  char filename [16];
-
-  imat spins(N, N); vec w(17);
-
-  mat data(mcs, 9);
-
   vec mcsrange = regspace(1, mcs);
 
   #pragma omp parallel for
   for (int i = 0; i < Temps.n_elem; ++i) {
+
+    double E = 0, M = 0;
+
+    char filename [16];
+
+    imat spins(N, N); vec w(17);
+
+    mat data(mcs, 9);
 
     double T = Temps[i];
 
