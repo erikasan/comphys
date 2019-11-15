@@ -17,6 +17,7 @@ void ising(int N, vec Temps, int mcs)
   for (int i = 0; i < Temps.n_elem; ++i) {
 
     double T = Temps[i];
+
     initialize(N, E, M, T, spins, w);
 
     for (int mc = 0; mc < mcs; ++mc) {
@@ -28,7 +29,7 @@ void ising(int N, vec Temps, int mcs)
     }
 
     // Calculate <E> and <E^2>
-    data(span::all, 1) = cumsum(        data(span::all, 0))/mcsrange;
+    data(span::all, 1) = cumsum(       data(span::all, 0)) /mcsrange;
     data(span::all, 2) = cumsum(square(data(span::all, 0)))/mcsrange;
 
     // Calculate <M>, <M^2> and <|M|>

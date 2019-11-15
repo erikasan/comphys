@@ -4,6 +4,10 @@
 
   "g++ lattice.cpp ising_montecarlo.cpp -o yournamehere -fopenmp"
 
+  Check if openmp works with htop
+
+
+
 */
 
 #include <iostream>
@@ -19,8 +23,8 @@ using namespace arma;
 int main()
 {
 
-  int N = 2;
-  vec T = regspace(2.20, 0.01, 2.31);
+  int N = 40;
+  vec T = regspace(2.0, 0.05, 2.31);
   int mcs = 1000000;
 
   ising(N, T, mcs);
