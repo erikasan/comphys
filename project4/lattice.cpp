@@ -23,10 +23,10 @@ using namespace arma;
 int main()
 {
 
-  int N = 40;
-  //vec T   = regspace(2.0, 0.05, 2.0);
-  vec T = regspace(2.20, 0.02, 2.31);
-  int mcs = 500000;
+  int N = 2;
+  vec T = regspace(1.0, 0.05, 1.3);
+  //vec T = regspace(2.0, 0.05, 2.31);
+  int mcs = 1000000;
 
   ising(N, T, mcs);
 

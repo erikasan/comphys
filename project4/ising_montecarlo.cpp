@@ -14,7 +14,7 @@ void ising(int N, vec Temps, int mcs)
 
     imat spins(N, N); vec w(17);
 
-    mat data(mcs, 9);
+    mat data(mcs, 7);
 
     double T = Temps[i];
 
@@ -24,25 +24,25 @@ void ising(int N, vec Temps, int mcs)
 
       metropolis(N, E, M, spins, w);
 
-      data(mc, 0) = E; data(mc, 3) = M;
+      data(mc, 0) = E; data(mc, 2) = M;
 
     }
 
-    // Calculate <E> and <E^2>
+    // Calculate <E>
     data(span::all, 1) = cumsum(       data(span::all, 0)) /mcsrange;
-    data(span::all, 2) = cumsum(square(data(span::all, 0)))/mcsrange;
 
-    // Calculate <M>, <M^2> and <|M|>
-    data(span::all, 4) = cumsum(       data(span::all, 3)) /mcsrange;
-    data(span::all, 5) = cumsum(square(data(span::all, 3)))/mcsrange;
-    data(span::all, 6) = cumsum(   abs(data(span::all, 3)))/mcsrange;
+    // Calculate <M> and <|M|>
+    data(span::all, 3) = cumsum(       data(span::all, 2)) /mcsrange;
+    data(span::all, 4) = cumsum(   abs(data(span::all, 2)))/mcsrange;
 
     // Calculate Cv and X
+    data(span::all, 5) = (cumsum(square(data(span::all, 0)))/mcsrange
+                               - square(data(span::all, 1)))/(T*T);
 
-    data(span::all, 7) = (data(span::all, 2) - square(data(span::all, 1)))/(T*T);
-    data(span::all, 8) = (data(span::all, 5) - square(data(span::all, 4)))/T;
+    data(span::all, 6) = (cumsum(square(data(span::all, 2)))/mcsrange
+                               - square(data(span::all, 3)))/T;
 
-    // Normalize
+    // Scale by # of spins
 
     data /= (N*N);
 
