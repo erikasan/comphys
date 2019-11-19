@@ -2,9 +2,9 @@ import numpy as np, matplotlib.pyplot as plt
 
 plt.style.use('seaborn-darkgrid')
 
-N = 60
-T = np.arange(2.0, 2.31, 0.05)
-skprows = 0
+N = 100
+T = np.arange(2.0, 2.31, 0.01)
+skprows = 399998
 
 meanE  = np.zeros(len(T))
 meanE2 = np.zeros(len(T))
@@ -30,24 +30,25 @@ for i, t in zip(range(len(T)), T):
 
 def plot():
     plt.xlabel(r'$T$', fontdict = font)
+    plt.title(r'$%d\times%d$ lattice' % (N, N), fontdict = font)
     plt.tight_layout()
     plt.show()
 
 def plot_meanE():
     plt.plot(T, meanE, 'o-', linewidth = 1.3, color = 'gold')
-    plt.ylabel(r'$\langle$ $E(T)$ $\rangle$',fontdict = font)
+    plt.ylabel(r'$\langle E \rangle$',fontdict = font)
     plot()
 
 
 def plot_meanM():
     plt.plot(T, meanM, 'o-', linewidth = 1.3, color = 'darkorange')
-    plt.ylabel(r'$\langle$ $\mathscr{M}(T)$ $\rangle$',fontdict = font)
+    plt.ylabel(r'$\langle \mathscr{M} \rangle$',fontdict = font)
     plot()
 
 
 def plot_absM():
     plt.plot(T, absM, 'o-', linewidth = 1.3, color = 'darkorange')
-    plt.ylabel(r'$\langle$ $|\mathscr{M}(T)|$ $\rangle$',fontdict = font)
+    plt.ylabel(r'$\langle |\mathscr{M}| \rangle$',fontdict = font)
     plot()
 
 def plot_Cv():

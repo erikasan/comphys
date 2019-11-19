@@ -1,0 +1,22 @@
+Plottene i rapporten ser ut som de har blitt plottet
+med to forskjellige stiler, men dette stemmer ikke.
+Alle plott har blitt laget med seaborn-darkgrid stilen i
+matplotlib. Når plottene genereres av programmet har de alle
+en hvit bakgrunn slik som plottet av <E> vs temperatur
+i "Verification" seksjonen. Det er når jeg lagrer plottene
+at noen av de bestemmer seg for å plutselig ha bakgrunnen
+fra fivethirtyeight stilen (blå-lilla-ish) som jeg tidligere har brukt,
+mens innholdet i selve plottet (der datapunktene/grafen ligger)
+har seaborn-darkgrid stilen.
+
+Jeg er opptatt av å ha et konsistent utseende på plottene,
+men dette var noe jeg dessverre ikke klarte å fikse i tide.
+
+
+Rapporten ble dessverre ikke skrevet i Latex denne gangen
+slik jeg foretrekker :( Igjen pga dårlig tid.
+I stedet ble det mathcha som er mye
+raskere å skrive i, men som mangler en del funksjonaliteter
+som Latex har. Formateringen har også en tendens til å bli litt
+rar noen steder, noe som er uungåelig. Jeg håper jeg kan bli
+tilgitt for det!

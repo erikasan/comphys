@@ -3,10 +3,7 @@
 void ising(int N, vec Temps, int mcs)
 {
 
-  //vec mcsrange = regspace(1, mcs);
-
-  //ivec imprange = regspace<ivec>(((int) 4e5) + 1, mcs); // Improved method. Wait 4e5 mc cycles before sampling
-  ivec imprange = regspace<ivec>(1, (int) (mcs - 4e5));
+  vec mcsrange = regspace(1, mcs);
 
   #pragma omp parallel for
   for (int i = 0; i < Temps.n_elem; ++i) {
@@ -17,29 +14,20 @@ void ising(int N, vec Temps, int mcs)
 
     imat spins(N, N); vec w(17);
 
-    //mat data(mcs, 7);
-    mat data((int) mcs - (int) 4e5, 7);
+    mat data(mcs, 7);
 
     double T = Temps[i];
 
     initialize(N, E, M, T, spins, w);
 
-    for (int mc = 0; mc < (int) 4e5; ++mc) {
+    for (int mc = 0; mc < mcs; ++mc) {
 
-      metropolis(N, E, M, spins, w);
-
-      //data(mc, 0) = E; data(mc, 2) = M;
-    }
-
-    for (int mc = 0; mc < (int) (mcs - 4e5); ++mc) {
-
-      metropolis(N, E, M, spins, w);
+      metropolis(N, E, M, spins, w, accepted);
 
       data(mc, 0) = E; data(mc, 2) = M;
 
     }
 
-    /*
     // Calculate <E>
     data(span::all, 1) = cumsum(       data(span::all, 0)) /mcsrange;
 
@@ -53,25 +41,10 @@ void ising(int N, vec Temps, int mcs)
 
     data(span::all, 6) = (cumsum(square(data(span::all, 2)))/mcsrange
                                - square(data(span::all, 3)))/T;
-    */
-
-    // Calculate <E>
-    data(span::all, 1) = cumsum(       data(span::all, 0)) /imprange;
-
-    // Calculate <M> and <|M|>
-    data(span::all, 3) = cumsum(       data(span::all, 2)) /imprange;
-    data(span::all, 4) = cumsum(   abs(data(span::all, 2)))/imprange;
-
-    // Calculate Cv and X
-    data(span::all, 5) = (cumsum(square(data(span::all, 0)))/imprange
-                               - square(data(span::all, 1)))/(T*T);
-
-    data(span::all, 6) = (cumsum(square(data(span::all, 2)))/imprange
-                               - square(data(span::all, 3)))/T;
 
     // Scale by # of spins
 
-    data /= (N*N);
+    //data /= (N*N);
 
     sprintf  (filename, "data-N=%d-T=%.2f.dat", N, T);
     data.save(filename, raw_ascii);
@@ -117,7 +90,7 @@ void initialize(int N, double &E, double &M, double T, imat &spins, vec &w)
 
 }
 
-void metropolis(int N, double &E, double &M, imat &spins, vec w)
+void metropolis(int N, double &E, double &M, imat &spins, vec w, int &accepted)
 {
 
   random_device rd;

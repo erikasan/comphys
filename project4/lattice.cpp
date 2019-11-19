@@ -23,9 +23,9 @@ using namespace arma;
 int main()
 {
 
-  int N = 40;
-  vec T = regspace(2, 0.04, 2.31);
-  //vec T = regspace(1, 0.1, 1);
+  int N = 20;
+  //vec T = regspace(2, 0.05, 2.31);
+  vec T = {1};
   int mcs = 1000000;
 
   ising(N, T, mcs);

@@ -10,6 +10,7 @@ plt.style.use('seaborn-darkgrid')
 
 def plot(N, T):
     plt.xlabel(r'$M$', fontdict = font)
+    plt.ticklabel_format(axis = 'x', style = 'scientific', scilimits = (0,0), useMathText = 1, useOffset=False)
     plt.title(r'$%d \times %d, T = %.2f$' % (N, N, T), fontdict = font)
     plt.tight_layout()
     plt.show()
@@ -60,3 +61,10 @@ def plot_X(N, T):
     plt.plot(X, linewidth = 1.3, color = 'dimgray')
     plt.ylabel(r'$\chi$',fontdict = font)
     plot(N, T)
+
+def plot_accepted(N, T):
+    accepted = np.loadtxt('data-N=%d-T=%.2f.dat' % (N, T))[:, -1]
+    plt.plot(accepted)
+    plt.ylabel('Accepted spin configurations', fontdict = font)
+    plt.ticklabel_format(axis = 'both', style = 'scientific', scilimits = (0,0), useMathText = 1, useOffset=False)
+    plt.plot(N, T)
