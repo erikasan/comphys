@@ -1,5 +1,4 @@
 import numpy as np, matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 
 plt.style.use('seaborn-darkgrid')
 

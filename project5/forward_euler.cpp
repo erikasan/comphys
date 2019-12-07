@@ -48,10 +48,11 @@ void diffusion_FE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save = 0
   u(0, span::all)     = w;
   u(N - 1, span::all) = z;
 
+  double d = 1 - 2*alpha;
   for (int j = 1; j < n - 1; ++j) {
   for (int i = 1; i < N - 1; ++i) {
 
-    u(i, j+1) = alpha*(u(i+1, j) + u(i-1, j)) + (1 - 2*alpha)*u(i, j);
+    u(i, j+1) = alpha*(u(i+1, j) + u(i-1, j)) + d*u(i, j);
 
   }}
 

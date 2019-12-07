@@ -6,27 +6,29 @@
 using namespace std;
 using namespace arma;
 
-void diffusion_BE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save);
+void diffusion_BE(mat &u, int N, int n, double T, vec v, rowvec w, rowvec z, bool save);
 
 int main()
 {
-  int N = 90;
-  int n = 10000;
+  int N = 100;
+  int n = 100;
+
+  double T = 0.4;
 
   mat u(N, n); vec v(N); rowvec w(n);
 
-  diffusion_BE(u, N, n, v.zeros(), w.zeros(), w.ones(), 1);
+  diffusion_BE(u, N, n, T, v.zeros(), w.zeros(), w.ones(), 1);
 
   cout << "Done!" << endl;
   return 0;
 }
 
-void diffusion_BE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save = 0)
+void diffusion_BE(mat &u, int N, int n, double T, vec v, rowvec w, rowvec z, bool save = 0)
 {
 
-  double dx    = (double) 1/(N - 1) ;
-  double dt    =          dx*dx/2   ;
-  double alpha =          dt/(dx*dx);
+  double dx    = (double) 1/(N - 1);
+  double dt    = (double) T/(n - 1);
+  double alpha =         dt/(dx*dx);
 
 
   u.zeros();
