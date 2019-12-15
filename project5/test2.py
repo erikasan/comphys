@@ -13,7 +13,7 @@ N = 10
 x = np.linspace(0, 1, N)
 x, y = np.meshgrid(x, x)
 
-t = np.linspace(0, T, 100)
+t = np.linspace(0, T, 500)
 
 norm = plt.Normalize(vmin = 0, vmax = 1)
 
@@ -38,6 +38,6 @@ plt.tight_layout()
 
 animation = FuncAnimation(fig, update_plot, np.arange(0, len(t)), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-#animation.save('2d_Forward_euler_h=0.01.gif', writer='imagemagick', fps=2)
+animation.save('2d_analytical.gif', writer='imagemagick', fps=2)
 
-plt.show()
+#plt.show()
