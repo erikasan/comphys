@@ -6,9 +6,9 @@ from matplotlib.animation import FuncAnimation
 def f(x, y, t):
     return np.sin(np.pi*x)*np.sin(np.pi*y)*np.exp(-2*np.pi**2*t)
 
-T = 0.3
+T = 0.2
 
-N = 10
+N = 100
 
 x = np.linspace(0, 1, N)
 x, y = np.meshgrid(x, x)
@@ -38,6 +38,6 @@ plt.tight_layout()
 
 animation = FuncAnimation(fig, update_plot, np.arange(0, len(t)), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-animation.save('2d_analytical.gif', writer='imagemagick', fps=2)
+animation.save('2d_analytical.gif', writer='imagemagick', fps=20)
 
 #plt.show()
