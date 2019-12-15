@@ -13,7 +13,7 @@ N = 10
 x = np.linspace(0, 1, N)
 x, y = np.meshgrid(x, x)
 
-t = np.linspace(0, T, 500)
+t = np.linspace(0, T, 300)
 
 norm = plt.Normalize(vmin = 0, vmax = 1)
 
