@@ -4,12 +4,6 @@ from matplotlib.animation import FuncAnimation
 plt.style.use('seaborn-darkgrid')
 
 
-font = {'family': 'serif',
-        'color':  'black',
-        'weight': 'normal',
-        'size': 16,
-        }
-
 def f(x, t):
     u = 0
     for n in range(1, 20):
