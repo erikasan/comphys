@@ -38,6 +38,6 @@ plt.tight_layout()
 
 animation = FuncAnimation(fig, update_plot, np.arange(0, len(t)), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-animation.save('2d_analytical.gif', writer='imagemagick', fps=20)
+#animation.save('2d_analytical.gif', writer='imagemagick', fps=20)
 
-#plt.show()
+plt.show()

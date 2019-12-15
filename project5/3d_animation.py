@@ -33,8 +33,8 @@ plot[0]._edgecolors2d=plot[0]._edgecolors3d
 plt.legend([r'2D Forward Euler $h=0.01$'], loc = 'upper left')
 plt.tight_layout()
 
-animation = FuncAnimation(fig, update_plot, np.arange(0, int(n), 600), fargs=(f, plot), interval=1, repeat_delay = 1000)
+animation = FuncAnimation(fig, update_plot, np.arange(0, int(n), 20), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-animation.save('2d_Forward_euler_h=0.01.gif', writer='imagemagick', fps=2)
+animation.save('2D_Forward_euler_h=0.01.gif', writer='imagemagick', fps=20)
 
 #plt.show()

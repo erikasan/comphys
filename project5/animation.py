@@ -18,7 +18,7 @@ fig, ax = plt.subplots()
 ax.set_xlim(0, 1)
 ax.set_ylim(-0.1, 1.1)
 
-T = 0.3
+T = 0.4
 x = np.linspace(0, 1, len(data[:, 0]))
 t = np.linspace(0, T, len(data[0, :]))
 
@@ -41,9 +41,8 @@ plt.ylabel(r'$u(x, t)$', fontdict = None)
 plt.legend([r'Crank-Nicolson $\Delta x = 1/100$', 'Analytical solution'], loc = 'upper left')
 
 
-animation = FuncAnimation(fig, func = animation_frame, frames = np.arange(1, len(data[0, :])), interval = 1, repeat_delay = 1000)
+animation = FuncAnimation(fig, func = animation_frame, frames = np.arange(1, len(data[0, :]), 20), interval = 1, repeat_delay = 1000)
 
-
-animation.save('Crank-Nicolson_dx=0.01.gif', writer='imagemagick', fps=10)
+animation.save('Crank-Nicolson_dx=0.01.gif', writer='imagemagick', fps=20)
 
 #plt.show()

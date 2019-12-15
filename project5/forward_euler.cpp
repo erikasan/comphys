@@ -10,7 +10,7 @@ int main()
 {
 
   int N = 101;
-  int n = 6000;
+  int n = 8000;
 
   mat u(N, n); vec v(N); rowvec w(n);
 

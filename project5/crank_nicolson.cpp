@@ -12,9 +12,9 @@ int main()
 {
 
   int N = 101;
-  int n = 100;
+  int n = 400;
 
-  double T = 0.3;
+  double T = 0.4;
 
   mat u(N, n); vec v(N); rowvec w(n);
 
