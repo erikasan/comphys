@@ -12,8 +12,8 @@ int main()
 {
 
   int N = 30;
-  int n = 400;
-  double T = 0.05;
+  int n = 667;
+  double T = 0.15;
 
   cube   u(N, N, n);
   mat       v(N, N);

@@ -9,8 +9,8 @@ void diffusion_FE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save);
 int main()
 {
 
-  int N = 500;
-  int n = 15000;
+  int N = 101;
+  int n = 6000;
 
   mat u(N, n); vec v(N); rowvec w(n);
 

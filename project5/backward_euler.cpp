@@ -10,10 +10,10 @@ void diffusion_BE(mat &u, int N, int n, double T, vec v, rowvec w, rowvec z, boo
 
 int main()
 {
-  int N = 100;
+  int N = 101;
   int n = 100;
 
-  double T = 0.4;
+  double T = 0.3;
 
   mat u(N, n); vec v(N); rowvec w(n);
 
