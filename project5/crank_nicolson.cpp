@@ -12,7 +12,7 @@ int main()
 {
 
   int N = 101;
-  int n = 400;
+  int n = 8001;
 
   double T = 0.4;
 
@@ -52,7 +52,11 @@ void diffusion_CN(mat &u, int N, int n, double T, vec v, rowvec w, rowvec z, boo
     u(span::all, j) = V;
   }
 
-  if (save) { u.save("data.dat", raw_ascii) ;}
+  if (save) {
+    char filename [20];
+    sprintf(filename, "CN-N=%d.dat", N);
+    u.save(filename, raw_ascii);
+  }
 
   return;
 }

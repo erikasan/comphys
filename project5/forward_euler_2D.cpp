@@ -11,9 +11,9 @@ double f(double x, double y);
 int main()
 {
 
-  int N = 101;
-  int n = 8000;
-  double T = 0.2;
+  int N = 11;
+  int n = 110;
+  double T = 0.4;
 
   cube   u(N, N, n);
   mat       v(N, N);

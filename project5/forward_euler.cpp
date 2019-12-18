@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 #include <armadillo>
 
 using namespace std;
@@ -9,8 +10,8 @@ void diffusion_FE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save);
 int main()
 {
 
-  int N = 101;
-  int n = 8000;
+  int N = 11;
+  int n = 81;
 
   mat u(N, n); vec v(N); rowvec w(n);
 
@@ -56,7 +57,11 @@ void diffusion_FE(mat &u, int N, int n, vec v, rowvec w, rowvec z, bool save = 0
 
   }}
 
-  if (save) { u.save("data.dat", raw_ascii) ;}
+  if (save) {
+    char filename [20];
+    sprintf(filename, "FE-N=%d.dat", N);
+    u.save(filename, raw_ascii);
+    }
 
   return;
 

@@ -11,7 +11,7 @@ def f(x, t):
     return x + u
 
 
-data = np.loadtxt('data.dat')
+data = np.loadtxt('FE-N=11.dat')
 
 fig, ax = plt.subplots()
 
@@ -38,11 +38,11 @@ def animation_frame(i):
 
 plt.xlabel(r'$x$', fontdict = None)
 plt.ylabel(r'$u(x, t)$', fontdict = None)
-plt.legend([r'Crank-Nicolson $\Delta x = 1/100$', 'Analytical solution'], loc = 'upper left')
+#plt.legend([r'Crank-Nicolson $\Delta x = 1/100$', 'Analytical solution'], loc = 'upper left')
 
 
-animation = FuncAnimation(fig, func = animation_frame, frames = np.arange(1, len(data[0, :]), 20), interval = 1, repeat_delay = 1000)
+animation = FuncAnimation(fig, func = animation_frame, frames = np.arange(1, len(data[0, :])), interval = 1, repeat_delay = 1000)
 
-animation.save('Crank-Nicolson_dx=0.01.gif', writer='imagemagick', fps=20)
+#animation.save('Crank-Nicolson_dx=0.01.gif', writer='imagemagick', fps=20)
 
-#plt.show()
+plt.show()
