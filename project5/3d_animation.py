@@ -30,11 +30,11 @@ ax.set_zlabel(r'$u(x,y,t)$')
 plot = [ax.plot_surface(x, y, f[0:N, :], norm = norm)]
 plot[0]._facecolors2d=plot[0]._facecolors3d
 plot[0]._edgecolors2d=plot[0]._edgecolors3d
-plt.legend([r'2D Forward Euler $h=0.01$'], loc = 'upper left')
+plt.legend([r'2D Forward Euler $h=0.1$'], loc = 'upper left')
 plt.tight_layout()
 
-animation = FuncAnimation(fig, update_plot, np.arange(0, int(n)), fargs=(f, plot), interval=1, repeat_delay = 1000)
+animation = FuncAnimation(fig, update_plot, np.arange(0, int(n), 2), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-#animation.save('2D_Forward_euler_unstable_h=0.1.gif', writer='imagemagick', fps=20)
+animation.save('2D_Forward_euler_unstable_h=0.1.gif', writer='imagemagick', fps=20)
 
-plt.show()
+#plt.show()
