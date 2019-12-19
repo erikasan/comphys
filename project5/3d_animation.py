@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 
 
-T = 0.4
+T = 2
 
 f = np.loadtxt('data2d.dat')
 n, N = f.shape
@@ -35,6 +35,6 @@ plt.tight_layout()
 
 animation = FuncAnimation(fig, update_plot, np.arange(0, int(n)), fargs=(f, plot), interval=1, repeat_delay = 1000)
 
-animation.save('2D_Forward_euler_unstable_h=0.1.gif', writer='imagemagick', fps=20)
+#animation.save('2D_Forward_euler_unstable_h=0.1.gif', writer='imagemagick', fps=20)
 
-#plt.show()
+plt.show()

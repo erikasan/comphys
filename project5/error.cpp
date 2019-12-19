@@ -69,7 +69,7 @@ double f(double x, double t)
   double u  = 0        ;
   double pi = 4*atan(1);
 
-  for (int n = 1; n < 10; ++n) {
+  for (int n = 1; n < 20; ++n) {
     u += pow(-1, n)*2/pi*sin(n*pi*x)*exp(-n*n*pi*pi*t);
   }
 
